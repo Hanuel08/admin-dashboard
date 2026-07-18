@@ -19,7 +19,15 @@ class UserController {
     }
 
     public function getAll() {
-        $users = $this->service->getAll();
+        // $users = $this->service->getAll();
+        // Response::success($users);
+
+
+        $query = Request::query();
+        //var_dump($query);
+
+        $users = $this->service->getAll($query);
+
         Response::success($users);
     }
 
@@ -37,6 +45,18 @@ class UserController {
     public function delete($id) {
         $this->service->delete($id);
         Response::success(["result" => "User deleted successfuly"]);
+    }
+
+    public function filterBy() {
+        $data = Request::body();
+        $users = $this->service->filterBy($data);
+        Response::success($users);
+    }
+
+    public function searchBy() {
+        $data = Request::body();
+        $users = $this->service->searchBy($data);
+        Response::success($users);
     }
 }
 

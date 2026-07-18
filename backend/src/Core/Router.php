@@ -29,6 +29,7 @@ class Router {
 
         // Dynamically get the directory of the running script to strip it if present (e.g., if hosted in a subdirectory or run via index.php directly)
         $scriptName = $_SERVER['SCRIPT_NAME'] ?? '';
+
         $baseDir = dirname($scriptName);
 
         if (strpos($uri, $scriptName) === 0) {

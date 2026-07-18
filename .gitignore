@@ -4,3 +4,6 @@ backend/public/.env
 backend/vendor/
 vendor/
 node_modules/
+.pnpm-store/
+package-lock.json
+yarn.lock

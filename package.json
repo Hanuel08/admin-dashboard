@@ -1,0 +1,25 @@
+{
+  "name": "admin-dashboard",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev:backend": "php -S localhost:8001 -t backend/public",
+    "dev:frontend": "pnpm --filter frontend dev",
+    "dev": "pnpm run dev:backend & pnpm run dev:frontend",
+    "build": "pnpm --filter frontend build",
+    "lint": "pnpm --filter frontend lint",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "packageManager": "pnpm@11.3.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hanuel08/admin-dashboard.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hanuel08/admin-dashboard/issues"
+  },
+  "homepage": "https://github.com/Hanuel08/admin-dashboard#readme"
+}

@@ -16,7 +16,8 @@ class Request {
         return json_decode($input, true) ?? [];
     }
 
-    public static function query($key) {
+    public static function query($key = null) {
+        if ($key === null) return $_GET;
         return $_GET[$key] ?? null;
     }
 }

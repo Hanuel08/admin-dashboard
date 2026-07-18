@@ -16,3 +16,29 @@ $router->post('/users', [UserController::class, 'create']);
 $router->put('/users/{id:\d+}', [UserController::class, 'update']);
 
 $router->delete('/users/{id:\d+}', [UserController::class, 'delete']);
+
+$router->post('/users/filter', [UserController::class, 'filterBy']);
+
+
+$router->post('/users/search', [UserController::class, 'searchBy']);
+
+
+
+
+// ?page=1
+// &limit=20
+// &search=john
+// &role=admin
+// &status=active
+// &sort=name
+// &direction=asc
+
+// Ejemplo completo
+
+// GET /users?page=2
+//             &limit=25
+//             &search=john
+//             &role=admin
+//             &status=active
+//             &sort=created_at
+//             &direction=desc
