@@ -27,7 +27,6 @@ class Router {
         $method = Request::method();
         $uri = Request::uri();
 
-        // Dynamically get the directory of the running script to strip it if present (e.g., if hosted in a subdirectory or run via index.php directly)
         $scriptName = $_SERVER['SCRIPT_NAME'] ?? '';
 
         $baseDir = dirname($scriptName);
@@ -40,6 +39,11 @@ class Router {
 
         if ($uri === "") {
             $uri = "/";
+        }
+
+        if ($method === 'OPTIONS') {
+            http_response_code(200);
+            return;
         }
 
         if (!isset($this->routes[$method])) {

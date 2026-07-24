@@ -55,7 +55,7 @@ export function Dropdown({ sortOptions: { defaultOption, defaultDirection, optio
       </button>
 
       {open && (
-        <ul className='mt-1 absolute text-white bg-black w-38 rounded-md shadow-lg border border-gray-700 px-2 py-2'>
+        <ul className='mt-1 absolute text-white bg-black w-38 rounded-md shadow-lg border border-gray-700 px-2 py-2 z-80'>
 
           <li className='flex justify-center items-center rounded-md'>
             <div className='flex items-center justify-between text-xs p-2 rounded-md bg-gray-900'>

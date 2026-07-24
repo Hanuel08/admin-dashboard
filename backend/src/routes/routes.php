@@ -9,6 +9,7 @@ use App\Controller\UserController;
 
 # user
 $router->get('/users', [UserController::class, 'getAll']);
+$router->get('/users/stats', [UserController::class, 'stats']);
 $router->get('/users/{id:\d+}', [UserController::class, 'getById']);
 
 $router->post('/users', [UserController::class, 'create']);
@@ -16,6 +17,8 @@ $router->post('/users', [UserController::class, 'create']);
 $router->put('/users/{id:\d+}', [UserController::class, 'update']);
 
 $router->delete('/users/{id:\d+}', [UserController::class, 'delete']);
+
+$router->post('/users/delete-multiple', [UserController::class, 'deleteMultiple']);
 
 $router->post('/users/filter', [UserController::class, 'filterBy']);
 

@@ -11,8 +11,24 @@ use function passwordHash;
 class UserService {
     private $repository;
 
+    private const STATUS_MAP = [
+        'pendiente'  => 'P',
+        'activo'     => 'A',
+        'inactivo'   => 'I',
+        'suspendido' => 'S',
+        'licencia'   => 'L',
+        'vacaciones' => 'V',
+    ];
+
     public function __construct() {
         $this->repository = new UserRepository();
+    }
+
+    private function mapStatus($data) {
+        if (!empty($data['status']) && isset(self::STATUS_MAP[$data['status']])) {
+            $data['status'] = self::STATUS_MAP[$data['status']];
+        }
+        return $data;
     }
 
     public function create($data) {
@@ -26,6 +42,10 @@ class UserService {
         ]);
 
         $data['password'] = passwordHash($data['password']);
+        $data = $this->mapStatus($data);
+
+        if (empty($data['birthdate'])) $data['birthdate'] = '1990-01-01';
+        if (empty($data['gender'])) $data['gender'] = 'M';
 
         return $this->repository->create($data);
     }
@@ -54,16 +74,25 @@ class UserService {
             throw new Exception("Invalid user id");
         }
 
-        Validator::validate($data, [
+        $rules = [
             'name'      => 'required|string|max:50',
             'last_name' => 'required|string|max:50',
             'username'  => 'required|string|max:50',
             'email'     => 'required|email|max:100',
-            'password'  => 'required|string|min:8|max:255',
             'role'      => 'required|string|in:admin,user',
-        ]);
+        ];
 
-        $data['password'] = passwordHash($data['password']);
+        if (!empty($data['password'])) {
+            $rules['password'] = 'required|string|min:8|max:255';
+        }
+
+        Validator::validate($data, $rules);
+
+        if (!empty($data['password'])) {
+            $data['password'] = passwordHash($data['password']);
+        }
+
+        $data = $this->mapStatus($data);
         
         return $this->repository->update($id, $data);
     }
@@ -73,6 +102,18 @@ class UserService {
             throw new Exception("Invalid user id");
         }
         return $this->repository->delete($id);
+    }
+
+    public function deleteMultiple($ids) {
+        if (empty($ids) || !is_array($ids)) {
+            throw new Exception("Invalid user ids");
+        }
+        return $this->repository->deleteMultiple($ids);
+    }
+
+
+    public function stats() {
+        return $this->repository->stats();
     }
 
 

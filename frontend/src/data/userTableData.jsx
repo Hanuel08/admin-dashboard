@@ -47,7 +47,7 @@ export const userTableData = {
     head: [
       {
         title: "Name",
-        name: "name",
+        name: "full_name",
         schema: null,
       },
       {

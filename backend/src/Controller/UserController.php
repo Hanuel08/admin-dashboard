@@ -47,6 +47,18 @@ class UserController {
         Response::success(["result" => "User deleted successfuly"]);
     }
 
+    public function deleteMultiple() {
+        $data = Request::body();
+        $ids = $data['ids'] ?? [];
+        $this->service->deleteMultiple($ids);
+        Response::success(["result" => "Users deleted successfuly"]);
+    }
+
+    public function stats() {
+        $stats = $this->service->stats();
+        Response::success($stats);
+    }
+
     public function filterBy() {
         $data = Request::body();
         $users = $this->service->filterBy($data);
